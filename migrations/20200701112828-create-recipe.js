@@ -8,9 +8,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+
+      name: { type: Sequelize.STRING },
       instructions: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
+      imageUrl: { type: Sequelize.STRING },
+
       preperationTime: {
         type: Sequelize.INTEGER,
       },

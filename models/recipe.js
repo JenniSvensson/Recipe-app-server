@@ -4,8 +4,14 @@ module.exports = (sequelize, DataTypes) => {
   const recipe = sequelize.define(
     "recipe",
     {
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      imageUrl: { type: DataTypes.STRING, allowNull: false },
+
       instructions: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       preperationTime: {
