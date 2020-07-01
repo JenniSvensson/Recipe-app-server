@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       amount: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       recipeId: {
         type: Sequelize.INTEGER,
