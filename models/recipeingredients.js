@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   const recipeIngredients = sequelize.define(
     "recipeIngredients",
     {
-      amount: DataTypes.INTEGER,
+      amount: DataTypes.STRING,
     },
     {}
   );
