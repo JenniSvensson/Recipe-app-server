@@ -7,7 +7,6 @@ const authRouter = require("./routers/auth");
 const authMiddleWare = require("./auth/middleware");
 
 const app = express();
-console.log(process.env.DATABASE_DEV);
 /**
  * Middlewares
  *

@@ -1,5 +1,4 @@
 require("dotenv").config();
-console.log(process.env.DATABASE_DEV);
 module.exports = {
   development: {
     url: process.env.DATABASE_DEV,
