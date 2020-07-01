@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const loggerMiddleWare = require("morgan");
 const corsMiddleWare = require("cors");
@@ -6,7 +7,6 @@ const authRouter = require("./routers/auth");
 const authMiddleWare = require("./auth/middleware");
 
 const app = express();
-
 /**
  * Middlewares
  *
