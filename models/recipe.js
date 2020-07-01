@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     "recipe",
     {
       name: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       imageUrl: { type: DataTypes.STRING, allowNull: false },

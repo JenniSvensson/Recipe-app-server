@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   recipeIngredients.associate = function (models) {
     recipeIngredients.belongsTo(models.recipe);
-    recipeIngredients.belongsTo(models.ingredients);
+    recipeIngredients.belongsTo(models.ingredient);
   };
   return recipeIngredients;
 };
