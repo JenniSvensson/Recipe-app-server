@@ -30,7 +30,11 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   recipe.associate = function (models) {
-    // associations can be defined here
+    recipe.belongsTo(models.user);
+    recipe.belongsToMany(models.ingredient, {
+      through: "recipeingredients",
+      foreignKey: "recipeId",
+    });
   };
   return recipe;
 };
