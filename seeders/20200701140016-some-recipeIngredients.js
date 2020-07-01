@@ -35,7 +35,7 @@ module.exports = {
       {
         amount: "1 dl",
         recipeId: 2,
-        ingredientId: 3,
+        ingredientId: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

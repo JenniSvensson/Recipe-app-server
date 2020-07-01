@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
   recipe.associate = function (models) {
     recipe.belongsTo(models.user);
     recipe.belongsToMany(models.ingredient, {
-      through: "recipeingredients",
+      through: "recipeIngredients",
       foreignKey: "recipeId",
     });
   };

@@ -5,6 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     "recipeIngredients",
     {
       amount: DataTypes.STRING,
+      recipeId: DataTypes.INTEGER,
+      ingredientId: DataTypes.INTEGER,
     },
     {}
   );
