@@ -4,7 +4,6 @@ const Ingredient = require("../models/").ingredient;
 const router = new Router();
 
 router.get("/", async (req, res, next) => {
-  console.log("hello", Recipe);
   console.log("Recipeingredients:", Ingredient);
   try {
     const recipes = await Recipe.findAll({ include: [Ingredient] });
