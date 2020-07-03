@@ -12,6 +12,7 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+
         {
           name: "milk",
           containsDairy: true,
@@ -36,6 +37,13 @@ module.exports = {
           name: "pasta",
           containsMeat: false,
           containsGluten: true,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: "butter",
+          containsDairy: true,
+          containsMeat: false,
           createdAt: new Date(),
           updatedAt: new Date(),
         },

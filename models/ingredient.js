@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   ingredient.associate = function (models) {
     ingredient.belongsToMany(models.recipe, {
-      through: "recipeingredients",
+      through: "recipeIngredients",
       foreignKey: "ingredientId",
     });
   };
