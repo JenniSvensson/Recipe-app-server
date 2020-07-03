@@ -4,15 +4,12 @@ const Ingredient = require("../models/").ingredient;
 const router = new Router();
 
 router.get("/", async (req, res, next) => {
-  console.log("Hello");
-  console.log("Recipeingredients:", Ingredient);
   try {
-    const recipes = await Recipe.findAll({ include: [Ingredient] });
-
-    if (!recipes) {
-      res.status(400).send("Recipes not found");
+    const ingredients = await Ingredient.findAll({ include: [Recipe] });
+    if (!ingredients) {
+      res.status(400).send("Ingredients not found");
     } else {
-      res.json(recipes);
+      res.json(ingredients);
     }
   } catch (error) {}
 });
