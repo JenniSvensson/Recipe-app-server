@@ -1,4 +1,5 @@
 "use strict";
+const Recipe = require("../models/").recipe;
 
 module.exports = (sequelize, DataTypes) => {
   const ingredient = sequelize.define(
@@ -20,7 +21,38 @@ module.exports = (sequelize, DataTypes) => {
       containsTreenuts: { type: DataTypes.BOOLEAN, defaultValue: false },
       containsWheat: { type: DataTypes.BOOLEAN, defaultValue: false },
     },
-    {}
+    {
+      scopes: {
+        vegan: {
+          where: {
+            [Op.and]: [
+              { containsMeat: false },
+              { containsDairy: false },
+              { containsEgg: false },
+              { containsSeafood: false },
+              { containsShellfish: false },
+            ],
+          },
+          include: [Recipe],
+        },
+        vegetarian: {
+          where: {
+            [Op.and]: [
+              { containsMeat: false },
+              { containsSeafood: false },
+              { containsShellfish: false },
+            ],
+          },
+          include: [Recipe],
+        },
+        glutenFree: {
+          where: {
+            containsGluten: false,
+          },
+          include: [Recipe],
+        },
+      },
+    }
   );
   ingredient.associate = function (models) {
     ingredient.belongsToMany(models.recipe, {
