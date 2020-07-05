@@ -1,5 +1,6 @@
 "use strict";
 const Recipe = require("../models/").recipe;
+const { Op } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   const ingredient = sequelize.define(
