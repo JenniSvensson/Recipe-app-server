@@ -5,14 +5,18 @@ const router = new Router();
 
 router.get("/", async (req, res, next) => {
   try {
-    const recipes = await Recipe.findAll({ include: [Ingredient] });
+    const ingredients = await Ingredient.findAll({
+      include: [Recipe],
+    });
 
-    if (!recipes) {
-      res.status(400).send("Recipes not found");
+    if (!ingredients) {
+      res.status(400).send("Ingredients not found");
     } else {
-      res.json(recipes);
+      res.json(ingredients);
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 module.exports = router;
