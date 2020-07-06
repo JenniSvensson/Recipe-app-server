@@ -72,7 +72,7 @@ module.exports = {
         },
         {
           name: "pasta",
-          containsGluten: true,
+          containsGluten: false,
           containsEgg: false,
           containsPeanut: false,
           containsDairy: false,
