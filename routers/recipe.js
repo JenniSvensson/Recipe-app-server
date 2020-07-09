@@ -2,9 +2,10 @@ const { Router } = require("express");
 const authMiddleware = require("../auth/middleware");
 const Recipe = require("../models/").recipe;
 const Ingredient = require("../models/").ingredient;
+const Recipeingredients = require("../models/").recipeIngredients;
 const router = new Router();
 
-router.get("/", async (req, res, next) => {
+router.get("/", async (req, res) => {
   try {
     const recipes = await Recipe.findAll({ include: [Ingredient] });
 
@@ -16,16 +17,46 @@ router.get("/", async (req, res, next) => {
   } catch (error) {}
 });
 
-router.post("/", authMiddleware, async (req, res, next) => {
+router.post("/", authMiddleware, async (req, res) => {
   try {
-    const result = await Recipe.create(req.body);
-    res.json(result);
+    const recipe = await Recipe.create(req.body);
+
+    req.body.ingredients.forEach(async (ing) => {
+      const lowerCaseNameIngredient = ing.ingredient.toLowerCase();
+
+      //Check if the ingrident exist already in the database or not
+      const ingredient = await Ingredient.findOne({
+        where: { name: lowerCaseNameIngredient },
+      });
+
+      let newIngredient;
+      //if the ingredient already exists in the database, create join row with the id from that ingredient
+      if (ingredient) {
+        const recipeIngredients = await Recipeingredients.create({
+          amount: ing.amount,
+          ingredientId: ingredient.id,
+          recipeId: recipe.id,
+        });
+        //if the ingredient was not found create a new ingredient.
+      } else {
+        newIngredient = await Ingredient.create({
+          name: ing.ingredient,
+        });
+        const recipeIngredients = await Recipeingredients.create({
+          amount: ing.amount,
+          ingredientId: newIngredient.id,
+          recipeId: recipe.id,
+        });
+      }
+    });
+
+    res.json(recipe);
   } catch (e) {
     console.log(e);
   }
 });
 
-router.get("/diet", async (req, res, next) => {
+router.get("/diet", async (req, res) => {
   const diet = req.query.diet;
 
   try {
@@ -36,6 +67,7 @@ router.get("/diet", async (req, res, next) => {
     });
 
     let validRecipies;
+    //filters based on the diet and if no diet is selected send back all
     if (diet === "vegan") {
       validRecipies = Recipes.filter((recipie) => {
         const validingredients = recipie.ingredients.some(
