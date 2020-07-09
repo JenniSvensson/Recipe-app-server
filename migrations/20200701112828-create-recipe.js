@@ -1,25 +1,28 @@
 "use strict";
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("users", {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable("recipes", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
+
+      name: { type: Sequelize.STRING },
+      instructions: {
+        type: Sequelize.TEXT,
       },
-      email: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false,
+      imageUrl: { type: Sequelize.STRING },
+
+      preperationTime: {
+        type: Sequelize.INTEGER,
       },
-      password: {
+      flavourProfile: {
         type: Sequelize.STRING,
-        allowNull: false,
+      },
+      dishType: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -31,7 +34,7 @@ module.exports = {
       },
     });
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("users");
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable("recipes");
   },
 };
