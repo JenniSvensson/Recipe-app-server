@@ -41,6 +41,17 @@ router.post("/", authMiddleware, async (req, res) => {
       } else {
         newIngredient = await Ingredient.create({
           name: ing.ingredient,
+          containsGluten: ing.gluten,
+          containsPeanut: ing.peanut,
+          containsDairy: ing.dairy,
+          containsEgg: ing.egg,
+          containsSeafood: ing.seafood,
+          containsSesame: ing.sesame,
+          containsShellfish: ing.shellfish,
+          containsSoy: ing.soy,
+          containsMeat: ing.meat,
+          containsTreenuts: ing.treenuts,
+          containsWheat: ing.wheat,
         });
         const recipeIngredients = await Recipeingredients.create({
           amount: ing.amount,
