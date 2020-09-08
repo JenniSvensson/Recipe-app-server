@@ -5,6 +5,7 @@ const Ingredient = require("../models/").ingredient;
 const Recipeingredients = require("../models/").recipeIngredients;
 const router = new Router();
 
+// Gets all the recipes
 router.get("/", async (req, res) => {
   try {
     const recipes = await Recipe.findAll({ include: [Ingredient] });
@@ -16,6 +17,8 @@ router.get("/", async (req, res) => {
     }
   } catch (error) {}
 });
+
+//Creates a new recipe
 
 router.post("/", authMiddleware, async (req, res) => {
   try {
@@ -66,6 +69,8 @@ router.post("/", authMiddleware, async (req, res) => {
     console.log(e);
   }
 });
+
+//Gets recipe based on diet preference
 
 router.get("/diet", async (req, res) => {
   const diet = req.query.diet;
@@ -123,5 +128,33 @@ router.get("/diet", async (req, res) => {
     console.log(error);
   }
 });
+
+// Delete a user's recipe
+router.delete(
+  "/:userId/recipes/:recipeId",
+  authMiddleware,
+  async (req, res, next) => {
+    const userId = parseInt(req.params.userId);
+    const userLoggedIn = req.user.dataValues;
+
+    if (userLoggedIn.id !== userId) {
+      return res.status(404).send("You can only delete your own recipe.");
+    } else {
+      try {
+        const recipeId = parseInt(req.params.recipeId);
+        const recipesToDelete = await Recipe.findByPk(recipeId);
+
+        if (!recipesToDelete) {
+          res.status(404).send("recipes not found");
+        } else {
+          const deleted = await recipesToDelete.destroy();
+          res.json(deleted);
+        }
+      } catch (e) {
+        next(e);
+      }
+    }
+  }
+);
 
 module.exports = router;
