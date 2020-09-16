@@ -142,12 +142,12 @@ router.delete(
     } else {
       try {
         const recipeId = parseInt(req.params.recipeId);
-        const recipesToDelete = await Recipe.findByPk(recipeId);
+        const recipeToDelete = await Recipe.findByPk(recipeId);
 
-        if (!recipesToDelete) {
+        if (!recipeToDelete) {
           res.status(404).send("recipes not found");
         } else {
-          const deleted = await recipesToDelete.destroy();
+          const deleted = await recipeToDelete.destroy();
           res.json(deleted);
         }
       } catch (e) {
